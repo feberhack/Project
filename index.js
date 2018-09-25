@@ -8,7 +8,7 @@ var map = new ol.Map({
 });
 
 loadPins();
-
+//felixxen
 
 var popup = new ol.Overlay({
     element: document.getElementById('popup')
