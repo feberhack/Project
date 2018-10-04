@@ -2,61 +2,17 @@ var map = new ol.Map({
     layers: [new ol.layer.Tile({ source: new ol.source.OSM() })],
     target: document.getElementById('map'),
     view: new ol.View({
+        projection: 'EPSG:3857',
         center: [0, 0],
         zoom: 3
     })
 });
 
-loadPins();
-//felixxen
+loadroads();
 
-var popup = new ol.Overlay({
-    element: document.getElementById('popup')
-});
-
-map.addOverlay(popup);
-
-map.on('dblclick', function(evt) {
-    var coordinate = evt.coordinate;
-    popup.setPosition(coordinate);
-    document.getElementById("lon").value =coordinate[0];
-    document.getElementById("lat").value =coordinate[1];
-    var marker = new ol.Overlay({
-        position: coordinate,
-        positioning: 'center-center',
-        element: document.getElementById('marker'),
-        stopEvent: false
-    });
-    map.addOverlay(marker);
-
-});
-
-function postPin(evt) {
-    lon=document.getElementById("lon").value;
-    lat=document.getElementById("lat").value;
-    desc=document.getElementById("desc").value;
-    //addMarker(coords);
-    data=JSON.stringify ({
-        lon: lon,
-        lat: lat,
-        desc: desc
-    })
-
+function loadroads(evt){
     var req = $.ajax ({
-        url: "http://localhost:3000/pin",
-        type: "POST",
-        cache: false,
-        contentType: "application/json",
-        data: data
-    });
-
-    req.done(function(data) {
-        alert(data)
-    });
-}
-function loadPins(evt){
-    var req = $.ajax ({
-        url: "http://localhost:3000/loadpins",
+        url: "http://localhost:3000/loadroads",
         type: "GET",
     });
     
@@ -64,17 +20,17 @@ function loadPins(evt){
         console.log(JSON.stringify(resp_json));
         var listaFeat=jsonAnswerDataToListElements(resp_json);
    
-        var pointdata= {
+        var linjedata= {
             "type": "FeatureCollection",
-            "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::3857" }},
+            "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::4326" }},
 
             "features": listaFeat
         };
         
    
-        console.log(JSON.stringify(pointdata));
+        console.log(JSON.stringify(linjedata));
         var vectorSource = new ol.source.Vector({
-            features: (new ol.format.GeoJSON()).readFeatures(pointdata)
+            features: (new ol.format.GeoJSON()).readFeatures(linjedata)
         });
 
         console.log(vectorSource)
@@ -86,16 +42,13 @@ function loadPins(evt){
             source: vectorSource,
             title: "Pinpoints",
             style: new ol.style.Style({
-                image: new ol.style.Circle({
-                    radius: 3 * 2,
-                    fill: new ol.style.Fill({
-                      color: blue
-                    }),
-                    stroke: new ol.style.Stroke({
-                      color: white,
-                      width: 3 / 2
-                    })
+                stroke: new ol.style.Stroke({
+                    color: 'red',
+                    width: 3
                 }),
+                fill: new ol.style.Fill({
+                    color: 'rgba(255,0,0,0.1)'
+                })
             })
         });
         console.log(layerRuta)
@@ -110,10 +63,9 @@ function loadPins(evt){
             }
 
            var feature = layerRuta.getSource().getClosestFeatureToCoordinate(coords);
+           //ändra styling för highlight
             // get all objects added to the map
             feature.setStyle(new ol.style.Style ({
-                image: new ol.style.Circle({
-                    radius: 3 * 2,
                     fill: new ol.style.Fill({
                       color: blue
                     }),
@@ -122,7 +74,7 @@ function loadPins(evt){
                       width: 3 / 2
                     })
                 })
-            }));
+            );
 
         }
           
@@ -145,6 +97,7 @@ function jsonAnswerDataToListElements(json_answer){
     }
     return r;
 }
+
 //Find my position
 function geoFindMe() {
     var output = document.getElementById("out");
@@ -160,25 +113,6 @@ function geoFindMe() {
         output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
         var coords = ol.proj.fromLonLat([longitude,latitude]);
         map.getView().animate({center: coords, zoom: 10});
-        x=coords[0]
-        y=coords[1]
-
-        data=JSON.stringify ({
-            x: x,
-            y: y,
-        })
-    
-        var req = $.ajax ({
-            url: "http://localhost:3000/myposition",
-            type: "POST",
-            cache: false,
-            contentType: "application/json",
-            data: data
-        });
-    
-        req.done(function(data) {
-            alert(data)
-        });
 
     }
   
@@ -191,11 +125,86 @@ function geoFindMe() {
     navigator.geolocation.getCurrentPosition(success, error);
 }
 
-function myFunction() {
-    setInterval(function(){ geoFindMe() }, 60000);
+function postRun() {
+    var form = document.getElementById("sendrun");
+    data=JSON.stringify ({
+        distance: form.elements[0].value,
+        description: form.elements[1].value,
+        routename: form.elements[2].value,
+        ciktyarea: form.elements[3].value,
+        terrain: form.elements[4].value,
+        private: form.elements[5].value,
+        coordinates: form.elements[6].value
+    })
+    alert("all good")
+	
+	var req = $.ajax ({
+        url: "http://localhost:3000/postrun",
+        type: "POST",
+        cache: false,
+        contentType: "application/json",
+        data: data
+    });
+    
+    req.done(function(resp_json) {
+        alert(resp_json)
+    });
 }
 
-document.getElementById("findloc").addEventListener("click", geoFindMe);
-document.getElementById("postPin").addEventListener("click", postPin);
+function resetForm(){
+	document.getElementById("sendrun").reset();	
+}
+
+function drawRoute(evt){
+    var source = new ol.source.Vector();
+     var styleFunction = function(feature) {
+      var geometry = feature.getGeometry();
+      var coordinates = geometry.getCoordinates();
+       var styles = [
+         // linestring
+         new ol.style.Style({
+           stroke: new ol.style.Stroke({
+             color: '#3138ff',
+             width: 3
+           })
+         })
+       ];
+    
+       geometry.forEachSegment(function(start, end) {
+         var dx = end[0] - start[0];
+         var dy = end[1] - start[1];
+         styles.push(new ol.style.Style({
+           geometry: new ol.geom.Point(end),
+         }));
+       });
+       var form = document.getElementById("sendrun");
+       form.elements['distance'].value=geometry.getLength()
+       form.elements['coordinates'].value=coordinates
+       
+    
+       return styles;
+     };
+    
+     var vector = new ol.layer.Vector({
+       source: source,
+       style: styleFunction
+     });
+      map.addLayer(vector);
+    
+      map.addInteraction(new ol.interaction.Draw({
+        source: source,
+        type: 'LineString'
+    }));
+    var modify = new ol.interaction.Modify({source: source});     //Gör så att den ritade linjen går att ändra i efterhand 
+    map.addInteraction(modify);
+}
+
+
 geoFindMe()
-myFunction()
+document.getElementById("postrun").addEventListener("click", postRun);
+document.getElementById("resetform").addEventListener("click", resetForm);
+document.getElementById("draw").addEventListener("click", drawRoute);
+
+
+
+
