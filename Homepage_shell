@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Material Design Bootstrap</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="./styles_homepage.css" rel="stylesheet">
+  
+</head>
+
+
+
+<!-- Main navigation -->
+<header>
+
+  <!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark primary-color">
+  <div class="container">
+      <!-- Navbar brand -->
+      <a class="navbar-brand" href="home">runRAHF</a>
+
+      <!-- Collapse button - Activates hidden content on mobile devices --> 
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav" aria-controls="basicExampleNav"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Collapsible content - hides the conent when on mobile device -->
+      <div class="collapse navbar-collapse" id="basicExampleNav">
+
+          <!-- Links - the different links on the navbar -->
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                  <a class="nav-link" href="home">Home
+                      <span class="sr-only">(current)</span>
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="yourtracks">Your tracks</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="community">Community</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="create">Create a track</a>
+              </li>
+          </ul>
+
+          <ul class="navbar-nav ml-auto">
+              <!-- Dropdown -->
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+                  <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                      <a class="dropdown-item" href="#">Sign out</a>
+                  </div>
+              </li>
+          </ul>
+
+     <!-- Om man vill ha en search ruta -->
+          <!-- Links -->
+
+          <!-- <form class="form-inline">
+              <div class="md-form my-0">
+                  <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+              </div>
+          </form>
+      </div> -->
+      <!-- Collapsible content -->
+  </div>
+
+</nav>
+<!--/.Navbar-->
+
+</header>
+<style>
+body{
+  background-image: url("https://visitbreckenridge.com/wp-content/uploads/2015/07/trailrunningwithwater.jpg");
+}
+</style>
+<body>
+
+<!-- Main navigation -->
+
+<!-- Main Layout -->
+<main class="mt-5">
+
+ <!-- Main container -->
+ <div class="container">
+  
+
+  <!-- Grid row -->
+  <div class="row">
+
+  </div>
+  <!-- Grid row -->
+
+  <!-- Grid row -->
+  <div class="row">
+    <!-- Grid columns -->
+    <div class="col-lg-4 col-md-12 mb-4">
+      <!-- Card -->
+      <div class="card">
+
+          <!-- Card image -->
+          <div class="view overlay">
+            <img class="card-img-top" src="C:\Users\Felix\Desktop\KTH\Web_Mobile_GIS\Project\running.jpg" alt="Running image">
+            <a href="yourtracks">
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+        
+          <!-- Card content -->
+          <div id="yourtracks"class="card-body">
+
+            <!-- Title -->
+            <h4 class="card-title">Your tracks</h4>
+            <!-- Text -->
+            <p class="card-text">Browse among the tracks you have created or the tracks from other users</p>
+            <!-- Button -->
+            <a href="yourtracks" id="tracksbtn" class="btn btn-primary">Browse</a>
+        
+          </div>
+        
+        </div>
+        <!-- Card -->
+      
+    </div>
+    <!-- Grid columns -->
+    
+    <!-- Grid columns -->
+    <div class="col-lg-4 col-md-6 mb-4">
+      <!-- Card -->
+      <div class="card">
+
+          <!-- Card image -->
+          <div class="view overlay">
+            <img class="card-img-top" src="C:\Users\Felix\Desktop\KTH\Web_Mobile_GIS\Project\runners.jpg" alt="Run Together">
+            <a href="community">
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+        
+          <!-- Card content -->
+          <div class="card-body">
+        
+            <!-- Title -->
+            <h4 class="card-title">Community</h4>
+            <!-- Text -->
+            <p class="card-text">Access the running community to explore new running tracks</p>
+            <!-- Button -->
+            <a href="community" id="communitybtn" class="btn btn-primary">Access</a>
+        
+          </div>
+        
+        </div>
+           <!-- Card -->
+      
+    </div>
+    <!-- Grid columns -->
+
+    <!-- Grid columns -->
+    <!-- Genom att lägga in md-4 så blir cardsen även responsive i mobilvyn, gjorts för alla cards -->
+    <div class="col-lg-4 col-md-6 mb-4">
+      <!-- Card -->
+      <div class="card">
+
+          <!-- Card image -->
+          <div class="view overlay">
+            <img class="card-img-top" src="C:\Users\Felix\Desktop\KTH\Web_Mobile_GIS\Project\tracks2.jpg" alt="Card image cap">
+            <a href="create">
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+        
+          <!-- Card content -->
+          <div class="card-body">
+        
+            <!-- Title -->
+            <h4 class="card-title">Create a track</h4>
+            <!-- Text -->
+            <p class="card-text">Create your own personal running tracks and save them to your catalog</p>
+            <!-- Button -->
+            <a href="create" id="createbtn" class="btn btn-primary">Create</a>
+        
+          </div>
+        
+        </div>
+        <!-- Card -->
+      
+    </div>
+    <!-- Grid columns -->
+ 
+  </div>
+    <!-- Grid row -->
+ </div>
+ <!-- Main container -->
+ 
+  
+</main>
+<!-- Main Layout -->
+
+<!-- Footer -->
+<br>
+<footer class="page-footer font-small"></footer>
+ <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2018 Copyright:
+      <a href="https://mdbootstrap.com/bootstrap-tutorial/"> runRAHF.com</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+</body>
+
+</html>
