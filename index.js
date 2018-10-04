@@ -1,5 +1,22 @@
+var vectorSource = new ol.source.Vector({});
+
+var layerRuta = new ol.layer.Vector({
+    source: vectorSource,
+    title: "Pinpoints",
+    style: new ol.style.Style({
+        stroke: new ol.style.Stroke({
+            color: 'red',
+            width: 3
+        }),
+        fill: new ol.style.Fill({
+            color: 'rgba(255,0,0,0.1)'
+        })
+    })
+});
+
+
 var map = new ol.Map({
-    layers: [new ol.layer.Tile({ source: new ol.source.OSM() })],
+    layers: [new ol.layer.Tile({ source: new ol.source.OSM() }), layerRuta],
     target: document.getElementById('map'),
     view: new ol.View({
         projection: 'EPSG:3857',
@@ -27,32 +44,15 @@ function loadroads(evt){
             "features": listaFeat
         };
         
-   
-        console.log(JSON.stringify(linjedata));
-        var vectorSource = new ol.source.Vector({
-            features: (new ol.format.GeoJSON()).readFeatures(linjedata)
-        });
+
+        vectorSource.addFeatures( (new ol.format.GeoJSON()).readFeatures(linjedata));
 
         console.log(vectorSource)
         var white = [255, 255, 255, 1];
         var blue = [0, 153, 255, 1];
         var red = [255,0,0,1];
 
-        var layerRuta = new ol.layer.Vector({
-            source: vectorSource,
-            title: "Pinpoints",
-            style: new ol.style.Style({
-                stroke: new ol.style.Stroke({
-                    color: 'red',
-                    width: 3
-                }),
-                fill: new ol.style.Fill({
-                    color: 'rgba(255,0,0,0.1)'
-                })
-            })
-        });
         console.log(layerRuta)
-        map.addLayer(layerRuta);
 
         function findNearestMarker(coords) {
             var source = layerRuta.getSource();
@@ -127,16 +127,28 @@ function geoFindMe() {
 
 function postRun() {
     var form = document.getElementById("sendrun");
+    coords=form.elements[6].value;
+    var res = coords.split(",");
+    var n = res.length;
+    var sc =''
+    for (i = 0; i < n-1; i++) {
+         x=res[i];
+         y=res[i+1];
+         sc=sc + x + ' ' + y + ',';
+    }
+
+    var newStr = sc.slice(0, sc.length-1);
+    console.log(newStr)
+    
     data=JSON.stringify ({
         distance: form.elements[0].value,
         description: form.elements[1].value,
         routename: form.elements[2].value,
-        ciktyarea: form.elements[3].value,
+        cityarea: form.elements[3].value,
         terrain: form.elements[4].value,
         private: form.elements[5].value,
-        coordinates: form.elements[6].value
+        coords: newStr
     })
-    alert("all good")
 	
 	var req = $.ajax ({
         url: "http://localhost:3000/postrun",
