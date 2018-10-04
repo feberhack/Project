@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Material Design Bootstrap</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="./styles.css" rel="stylesheet">
+  <!-- Bebas font -->
+  <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/bebas" type="text/css"/>
+</head>
+<!-- FIXA BAKGRUNDSBILD/FÄRG PÅ HOME PAGE. DU HAR LAGT IN INTRO ID OCH FULL-BG-IMG I HOMEPAGE MEN INTE -->
+
+<body>
+
+    <!-- Main navigation -->
+    <header>
+        <!-- Mask - Can make our image darker or lighter -->
+        <div id="intro" class="view">
+            <div class="full-bg-img">
+                <!-- Heading -->
+                <div class="container">
+                    <div class="row mt-5">
+                        <!--Grid column-->
+                        <div class="col-md-6 col-xl-5 mb-4">
+                            <!--Form-->
+                            <div class="card wow fadeInRight" data-wow-delay="0.8s">
+                                <div class="card-body">
+                                    <!--Header-->
+                                    <div class="text-center">
+                                        <h3 class="white-text">
+                                            <i id="welcome"class="lead"></i>Welcome to runRAHF!</h3>
+                                        <hr class="hr-light">
+                                    </div>
+                                    <!--Body-->
+                                    <div class="white-text center">
+                                        <h4>The new way of running is here!</h4> <br>
+                                        <h4>Log in or register below to start running like you've never run before!</h4>
+                                        <br>
+                                        <!-- <i class="fa fa-user prefix white-text active"></i>
+                                        <input type="text" id="form3" class="white-text form-control">
+                                        <label for="form3" class="active">Username</label> -->
+                                    </div>
+                                    <!-- <div class="md-form">
+                                        <i class="fa fa-lock prefix white-text active"></i>
+                                        <input type="password" id="form4" class="white-text form-control">
+                                        <label for="form4">Your password</label> -->
+                                    <!-- </div> -->
+
+                                    <div class="col-xs-12">
+                                        <!-- Modal for register -->
+                                        <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header text-center">
+                                                            <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body mx-3">
+                                                            <div class="md-form mb-5">
+                                                                <i class="fa fa-user prefix grey-text"></i>
+                                                                <input type="text" id="signupusername" class="form-control validate">
+                                                                <label data-error="wrong" data-success="right" for="username">Your name</label>
+                                                            </div>
+                                                            <div class="md-form mb-5">
+                                                                <i class="fa fa-envelope prefix grey-text"></i>
+                                                                <input type="email" id="signupemail" class="form-control validate">
+                                                                <label data-error="wrong" data-success="right" for="email">Your email</label>
+                                                            </div>
+                                            
+                                                            <div class="md-form mb-4">
+                                                                <i class="fa fa-lock prefix grey-text"></i>
+                                                                <input type="password" id="signuppassword" class="form-control validate">
+                                                                <label data-error="wrong" data-success="right" for="signuppassword">Your password</label>
+                                                            </div>
+                                            
+                                                        </div>
+                                                        <div class="modal-footer d-flex justify-content-center">
+                                                            <a href="homepage.html">
+                                                            <button id="signupbtn"class="btn">Sign up</button>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                            
+                                        <!-- <div class="text-left">
+                                            <a href="" id="registerbtn" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalRegisterForm">Register here!</a>
+                                        </div> -->
+
+                                        <!-- Modal for Login -->
+                                        <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header text-center">
+                                                            <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body mx-3">
+                                                            <div class="md-form mb-5">
+                                                                <i class="fa fa-envelope prefix grey-text"></i>
+                                                                <input type="email" id="loginemail" class="form-control validate">
+                                                                <label data-error="wrong" data-success="right" for="loginemail">Your email</label>
+                                                            </div>
+                                            
+                                                            <div class="md-form mb-4">
+                                                                <i class="fa fa-lock prefix grey-text"></i>
+                                                                <input type="password" id="loginpassword" class="form-control validate">
+                                                                <label data-error="wrong" data-success="right" for="loginpassword">Your password</label>
+                                                            </div>
+                                            
+                                                        </div>
+                                                        <div class="modal-footer d-flex justify-content-center">
+                                                            <a href="homepage.html">
+                                                            <button id="loginbtn"class="btn">Login</button>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        <div class="btn-group">
+                                            <a href="" id="loginbtn" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Log in here!</a>
+                                            <a href="" id="registerbtn" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalRegisterForm">Register here!</a>
+                                        </div>
+                                        <!-- <div class="inline-ul text-center d-flex justify-content-center">
+                                            <a class="p-2 m-2 tw-ic">
+                                                <i class="fa fa-twitter white-text"></i>
+                                            </a>
+                                            <a class="p-2 m-2 li-ic">
+                                                <i class="fa fa-linkedin white-text"> </i>
+                                            </a>
+                                            <a class="p-2 m-2 ins-ic">
+                                                <i class="fa fa-instagram white-text"> </i>
+                                            </a>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/.Form-->
+                        </div>
+                        <!--Grid column-->    
+                    </div>
+                </div>
+                
+
+            </div>
+            
+        </div>
+        
+        <!-- Mask -->
+
+    </header>
+    <!-- Main navigation -->
+
+    <!-- Main layout -->
+    <main>
+
+    </main>
+    <!-- Main layout -->
+
+
+
+
+
+<!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+</body>
+
+</html>
