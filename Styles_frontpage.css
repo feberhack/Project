@@ -1,0 +1,91 @@
+/* Styles */
+html,
+body,
+header,
+#intro {
+    height: 100%;
+}
+
+#intro {
+    background: url("https://visitbreckenridge.com/wp-content/uploads/2015/07/trailrunningwithwater.jpg")no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+/* 
+.container{-webkit-box-shadow: -1px 0px 40px 8px rgba(174,171,209,0.63);
+  -moz-box-shadow: -1px 0px 40px 8px rgba(174,171,209,0.63);
+  box-shadow: -1px 0px 40px 8px rgba(174,171,209,0.63);} */
+
+html,
+body,
+header,
+.view {
+  height: 100%;
+}
+
+@media (max-width: 740px) {
+  html,
+  body,
+  header,
+  .view {
+    height: 100%;
+  }
+}
+@media (min-width: 800px) and (max-width: 850px) {
+  html,
+  body,
+  header,
+  .view {
+    height: 100%;
+  }
+}
+
+/* .rgba-gradient {
+  background: -webkit-linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(72, 15, 144, 0.4) 100%);
+  background: -webkit-gradient(linear, 45deg, from(rgba(0, 0, 0, 0.7), rgba(72, 15, 144, 0.4) 100%)));
+  background: linear-gradient(to 45deg, rgba(0, 0, 0, 0.7), rgba(72, 15, 144, 0.4) 100%);
+} */
+
+.card {
+  background-color: rgba(126, 123, 215, 0.2);
+}
+
+#signupbtn{
+  background-color: rgb(17, 81, 133) !important;
+  border-radius: 1000px;
+  background-image: none !important;
+  opacity: 0.85;
+}
+
+
+#loginbtn2{
+  background-color: rgb(17, 81, 133) !important;
+  border-radius: 1000px;
+  background-image: none !important;
+  opacity: 0.85;
+}
+
+
+.md-form label {
+  color: #ffffff;
+}
+#registerbtn {
+  background-color: rgb(17, 81, 133) !important;
+  border-radius: 1000px;
+  background-image: none !important;
+  opacity: 0.85;
+
+}
+
+
+#loginbtn {
+  background-color: rgb(17, 81, 133) !important;
+  border-radius: 1000px;
+  background-image: none !important;
+  opacity: 0.85;
+
+}
