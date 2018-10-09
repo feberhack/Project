@@ -16,7 +16,6 @@
         background-color: #0FF;
         opacity: 0.5;
       }
-
        .popover-content {
         min-width: 180px;
       }
@@ -84,6 +83,45 @@
       <button class="btn-primary" id="resetform" data-toggle="tooltip" title="postrun">Reset Form</button>
       <br><br>
   </form>
+
+  <form id="searchrun" onsubmit="event.preventDefault();">
+    <div class="form-group">
+      <label for="">Distance:</label>
+      <select>
+        <option value="12">1-2 km</option>
+        <option value="36">3-6 km</option>
+        <option value="79">7-9 km</option>
+        <option value="10">10+ km</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="">Name of route:</label>
+      <input type="text" class="form-control" id="routename" name="routename" data-toggle="tooltip" title="routename">
+    </div>
+    <div class="form-group">
+      <label for="">City Area:</label>
+      <select id="cityarea" name="cityarea">
+          <option value="Djurgården">Djurgården</option>
+          <option value="Norrmalm">Norrmalm</option>
+          <option value="Södermalm">Södermalm</option>
+          <option value="Östermalm">Östermalm</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="">Terrain:</label>
+      <select id="terrain" name="terrain">
+          <option value="Blandat">Blandat</option>
+          <option value="Asfalt">Asfalt</option>
+          <option value="Grus">Grus</option>
+          <option value="Skog">Skog</option>
+      </select>
+    </div>
+    <input type="text" class="form-control" id="coordinates" name="coordinates" data-toggle="tooltip" title="cooridnates">
+    <button class="btn-primary" id="searchrun" data-toggle="tooltip" title="searchrun">Search for run</button>
+    <br><br>
+    <button class="btn-primary" id="resetform" data-toggle="tooltip" title="searchrun">Reset Form</button>
+    <br><br>
+</form>
   <script src="./index.js"></script>
   </body>
 </html>
