@@ -95,7 +95,7 @@ app.post ('/postrun', (req , res) => {
     console.log (req.body);
     // data you send from your application is available on
     // req.body object , your data processing logic goes here
-    pool.query (`insert into d.track (user_gid, distance, description, route_name, cityarea, terrain, private) values ('1', '${req.body.distance}','${req.body.description}','${req.body.routename}','${req.body.cityarea}','${req.body.terrain}',${req.body.private})`, (err, dbResponse) => {
+    pool.query (`insert into d.track (user_gid, distance, description, route_name, cityarea, terrain, private, geom) values ('1', '${req.body.distance}','${req.body.description}','${req.body.routename}','${req.body.cityarea}','${req.body.terrain}',${req.body.private}, ST_GeomFromText('LINESTRING(${req.body.coords})',3857))`, (err, dbResponse) => {
         if (err) console.log(err);
         res.send("Position added!");
     });

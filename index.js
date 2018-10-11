@@ -29,7 +29,14 @@ var styleFunction = function(feature) {
     ];
     
     var form = document.getElementById("sendrun");
-    form.elements['distance'].value=geometry.getLength()
+    var length = geometry.getLength()
+    if (length > 1000){
+        length = (length / 1000).toFixed(2) + " km"
+    } else {
+        length = length.toFixed(2) + " m"
+    }
+
+    form.elements['distance'].value=length 
     form.elements['coordinates'].value=coordinates
        
     return styles;
@@ -59,7 +66,7 @@ function loadroads(evt){
     });
     
     req.done(function(resp_json) {
-        console.log(JSON.stringify(resp_json));
+        //console.log(JSON.stringify(resp_json));
         var listaFeat=jsonAnswerDataToListElements(resp_json);
    
         var linjedata= {
@@ -71,9 +78,9 @@ function loadroads(evt){
 
         vectorSource.addFeatures( (new ol.format.GeoJSON()).readFeatures(linjedata));
         
-        console.log(JSON.stringify(linjedata));
-        console.log(vectorSource)
-        console.log(layerRuta)
+        //console.log(JSON.stringify(linjedata));
+        //console.log(vectorSource)
+        //console.log(layerRuta)
         
     });
 }
@@ -97,24 +104,21 @@ function geoFindMe() {
     var output = document.getElementById("out");
   
     if (!navigator.geolocation){
-      output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+        alert("Geolocation is not supported by your browser")
       return;
     }
   
     function success(position) {
         var latitude  = position.coords.latitude;
         var longitude = position.coords.longitude;
-        output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
         var coords = ol.proj.fromLonLat([longitude,latitude]);
         map.getView().animate({center: coords, zoom: 13});
     }
   
     function error() {
-        output.innerHTML = "Unable to retrieve your location";
-    }
-  
-    output.innerHTML = "<p>Locating…</p>";
-  
+        alert("Error")
+        }
+    
     navigator.geolocation.getCurrentPosition(success, error);
 }
 
@@ -122,16 +126,31 @@ function geoFindMe() {
 
 function postRun() {
     var form = document.getElementById("sendrun");
+    coords=form.elements['coordinates'].value;
+    var res = coords.split(",");
+    var n = res.length;
+    var sc =''
+    for (i = 0; i < n-1; i++) {
+         x=res[i];
+         y=res[i+1];
+         sc=sc + x + ' ' + y + ',';
+    }
+
+    var newStr = sc.slice(0, sc.length-1);
+    console.log(newStr)
+    var dist = form.elements["distance"].value
+    var dist2 = dist.substr(0, dist.length-2)
+    console.log(dist2)
+
     data=JSON.stringify ({
-        distance: form.elements[0].value,
-        description: form.elements[1].value,
-        routename: form.elements[2].value,
-        cityarea: form.elements[3].value,
-        terrain: form.elements[4].value,
-        private: form.elements[5].value,
-        coordinates: form.elements[6].value
+        distance: dist2,
+        description: form.elements["description"].value,
+        routename: form.elements["routename"].value,
+        cityarea: form.elements["cityarea"].value,
+        terrain: form.elements["terrain"].value,
+        private: form.elements["private"].value,
+        coords: newStr
     })
-    alert("all good")
 	
 	var req = $.ajax ({
         url: "http://localhost:3000/postrun",
@@ -152,7 +171,7 @@ function postRun() {
 
 function resetForm(){
     document.getElementById("sendrun").reset();  
-    drawSource.clear();  
+    drawSource.clear();
 }
 
 //------------------------------------------------
@@ -179,62 +198,12 @@ function drawRoute(evt){
 
     var modify = new ol.interaction.Modify({source: drawSource});     //Gör så att den ritade linjen går att ändra i efterhand 
     map.addInteraction(modify);
-    document.getElementById("draw").disabled = true;
+    document.getElementById("drawpath").disabled = true;
+    
 }
 //-------------------------------
 function snapRoute(evt){
 
-    //----------------Kod som ej funkar--
-
-    // drawingManager.addListener('polylinecomplete', function(poly) {
-    //     var path = poly.getPath();
-    //     polylines.push(poly);
-    //     placeIdArray = [];
-    //     runSnapToRoad(path);
-    //   });
-
-    //   function runSnapToRoad(path) {
-    //     var pathValues = [];
-    //     for (var i = 0; i < path.getLength(); i++) {
-    //       pathValues.push(path.getAt(i).toUrlValue());
-    //     }
-      
-    //     $.get('https://roads.googleapis.com/v1/snapToRoads', {
-    //       interpolate: true,
-    //       key: apiKey,
-    //       path: pathValues.join('|')
-    //     }, function(data) {
-    //       processSnapToRoadResponse(data);
-    //       drawSnappedPolyline();
-    //       getAndDrawSpeedLimits();
-    //     });
-    //   }
-
-    //   function processSnapToRoadResponse(data) {
-    //     snappedCoordinates = [];
-    //     placeIdArray = [];
-    //     for (var i = 0; i < data.snappedPoints.length; i++) {
-    //       var latlng = new google.maps.LatLng(
-    //           data.snappedPoints[i].location.latitude,
-    //           data.snappedPoints[i].location.longitude);
-    //       snappedCoordinates.push(latlng);
-    //       placeIdArray.push(data.snappedPoints[i].placeId);
-    //     }
-    //   }
-      
-    //   // Draws the snapped polyline (after processing snap-to-road response).
-    //   function drawSnappedPolyline() {
-    //     var snappedPolyline = new google.maps.Polyline({
-    //       path: snappedCoordinates,
-    //       strokeColor: 'black',
-    //       strokeWeight: 3
-    //     });
-      
-    //     snappedPolyline.setMap(map);
-    //     polylines.push(snappedPolyline);
-    //   }
-
-    /////////
 
     function findNearestMarker(coords) {
          
@@ -244,23 +213,31 @@ function snapRoute(evt){
         var feature = layerRuta.getSource().getClosestFeatureToCoordinate(coords);
 
         // get all objects added to the map
-
+        
         feature.setStyle(new ol.style.Style ({
             fill: new ol.style.Fill({
                 color: '#db5300'
             }),
             stroke: new ol.style.Stroke({
                 color: '#db5300',
-                width: 2
+                width: 4
             })
         })
         );
+
     }
-      
-    map.on('singleclick', function(evt) {
-        var coords = (evt.coordinate);
-        findNearestMarker(coords);
-    },  false);
+          
+    var form = document.getElementById("sendrun");
+    coords=form.elements['coordinates'].value;
+    console.log(coords)
+    var res = coords.split(",");
+    console.log(res)
+
+    for (i = 0; i < res.length; i=i+2){
+        coords = res[i] +","+ (res[i+1])
+         console.log(coords)
+         findNearestMarker(coords);
+    }
 
     document.getElementById("snap").disabled = true;
 }
@@ -271,6 +248,6 @@ geoFindMe()
 loadroads();
 document.getElementById("postrun").addEventListener("click", postRun);
 document.getElementById("resetform").addEventListener("click", resetForm);
-document.getElementById("draw").addEventListener("click", drawRoute);
+document.getElementById("drawpath").addEventListener("click", drawRoute);
 document.getElementById("snap").addEventListener("click", snapRoute);
 
