@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Formulär_test</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="./styles_homepage.css" rel="stylesheet">
+  <!-- <link href="./Style_form.css" rel="stylesheet"> -->
+  <style>
+        #map {
+          width:100%;
+          height:800px;
+        }
+        #description{
+          width:50%;
+          height: 100px;
+        }
+        #routename{
+          width: 50%;
+        }
+        /* #marker {
+          width: 20px;
+          height: 20px;
+          border: 1px solid #088;
+          border-radius: 10px;
+          background-color: #0FF;
+          opacity: 0.5;
+        } */
+         .popover-content {
+          min-width: 180px;
+        }
+     
+    </style>
+  
+</head>
+
+<!-- Main navigation -->
+<header>
+
+  <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark primary-color">
+  <div class="container">
+      <!-- Navbar brand -->
+      <a class="navbar-brand" href="home">runRAHF</a>
+
+      <!-- Collapse button - Activates hidden content on mobile devices --> 
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav" aria-controls="basicExampleNav"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Collapsible content - hides the conent when on mobile device -->
+      <div class="collapse navbar-collapse" id="basicExampleNav">
+
+          <!-- Links - the different links on the navbar -->
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                  <a class="nav-link" href="home">Home
+                      <span class="sr-only">(current)</span>
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="community">Community</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="create">Create a track</a>
+              </li>
+          </ul>
+
+          <ul class="navbar-nav ml-auto">
+              <!-- Dropdown -->
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+                  <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                      <a class="dropdown-item" href="#">Sign out</a>
+                      <a class="dropdown-item" href="yourtracks">Your tracks</a>
+                  </div>
+              </li>
+          </ul>
+
+     <!-- Om man vill ha en search ruta -->
+          <!-- Links -->
+
+          <!-- <form class="form-inline">
+              <div class="md-form my-0">
+                  <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+              </div>
+          </form>
+      </div> -->
+      <!-- Collapsible content -->
+  </div>
+
+</nav>
+<!-- /.Navbar -->
+
+</header>
+<body>
+<main class="mt-5">
+    <div class="container">
+        <form id="sendrun" onsubmit="event.preventDefault();">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <p><button class="btn btn-default btn-rounded" id="drawpath">Draw your running path</button></p> 
+                        <h6>By draging your polyline you can edit its position!</h6>
+                        <br>
+                        <div id="out"></div>
+                        <div id="out2"></div> 
+                    </div>
+                    <div class="col">
+                        <div class="form-horizontal">
+                            <div class="control-group">
+                                <label for="name" class="col-lg-2"> Distance:</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="distance" name="distance" data-toggle="tooltip" title="distance" readonly>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="map"></div>      
+        
+        <div class="container">
+        <div class="form-group">
+            <label for="">Description:</label>
+            <input type="text" class="form-control" id="description" name="description" data-toggle="tooltip" title="description">
+        </div>
+        <div class="form-group">
+            <label for="">Name the route:</label>
+            <input type="text" class="form-control" id="routename" name="routename" data-toggle="tooltip" title="routename">
+        </div>
+        <div class="form-group">
+            <label for="">City Area:</label>
+            <select id="cityarea" name="cityarea">
+                <option value="Djurgården">Djurgården</option>
+                <option value="Norrmalm">Norrmalm</option>
+                <option value="Södermalm">Södermalm</option>
+                <option value="Östermalm">Östermalm</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="">Terrain:</label>
+            <select id="terrain" name="terrain">
+                <option value="Blandat">Blandat</option>
+                <option value="Asfalt">Asfalt</option>
+                <option value="Grus">Grus</option>
+                <option value="Skog">Skog</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="">Do you want to share your run with other people:</label>
+            <select id="private" name="private">
+                <option value='true'>Yes</option>
+                <option value='false'>No</option>
+            </select>
+        </div>
+        <div class="btn-group mt-4">
+            <button class="btn btn-default btn-rounded mb-4" style="margin-right: 10px;" id="postrun" data-toggle="tooltip" title="postrun">Post Run</button>
+            <button class="btn btn-default btn-rounded mb-4" id="resetform" data-toggle="tooltip" title="postrun">Reset Form</button>
+
+        </div>
+        <br><br>
+            </div>
+        </form>
+        
+    </div>
+
+
+</main>
+
+<br>
+<footer class="page-footer font-small"></footer>
+ <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2018 Copyright:
+      <a href="https://mdbootstrap.com/bootstrap-tutorial/"> runRAHF.com</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+
+</body>
